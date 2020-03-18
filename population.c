@@ -1,0 +1,20 @@
+#include "population.h"
+Population * createPopulation(size_t population_size){
+    Population * population = (Population *)malloc(sizeof(Population));
+    population->persons = (Person *)malloc(sizeof(Person) * population_size);
+    population->population_size = population_size;
+    population->number_of_infected = 0;
+    for(int i = 0; i < population_size; i++){
+        srand(i);
+        float x_pos = rand() % (WindowWidth - default_width);
+        float y_pos = rand() % (WindowHeight - default_height);
+        int age = rand() % 100;
+        population->persons[i] = *(create_person(age, x_pos, y_pos));
+    }
+    return population;
+}
+void draw_population(Population * p, SDL_Renderer * renderer){
+    for(int i = 0; i < p->population_size; i++){
+        draw_person(&p->persons[i], renderer);
+    }
+}
