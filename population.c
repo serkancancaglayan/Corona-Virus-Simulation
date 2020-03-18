@@ -20,55 +20,11 @@ void draw_population(Population * p, SDL_Renderer * renderer){
     }
 }
 
-void check_infections_population(Population *p){
+void update_population(Population *p){
     for(int i = 0; i < p->population_size; i++){
-        if(p->persons[i].is_infected){
-            int age = p->persons[i].age;
-            /* 0 - 9 years old --> no fatalities
-               10 - 39 years old --> %0.2
-               40 - 49 years old --> %0.4
-               50 - 59 years old --> %1.3
-               60 - 69 years old --> %3.6
-               70 - 79 years old --> %8.0
-               80+ years old --> %14.8
-            */
-            float death_rate = 100 *((float) rand() / (float)RAND_MAX);
-            if(age >= 0 && age <= 9){
-                continue;
-            }
-            else if(age >= 10 && age <= 39){
-                if(death_rate <= 0.2){
-                    p->persons[i].isAlive = 0;
-                }
-            }
-            else if(age >= 40 && age <= 49){
-                if(death_rate <= 0.4){
-                    p->persons[i].isAlive = 0;
-                }
-            }
-            else if(age >= 50 && age <= 59){
-                if(death_rate <= 1.3){
-                    p->persons[i].isAlive = 0;
-                }
-            }
-            else if(age >= 60 && age <= 69){
-                if(death_rate <= 3.6){
-                    p->persons[i].isAlive = 0;
-                }
-            }
-            else if(age >= 70 && age <= 79){
-                if(death_rate <= 8.0){
-                    p->persons[i].isAlive = 0;
-                }
-            }
-            else{
-                if(death_rate <= 14.8){
-                    p->persons[i].isAlive = 0;
-                }
-            }
+        if(p->persons[i].is_infected && !p->persons[i].is_checked){
+            p->number_of_infected++;
+            check_infected(&p->persons[i]);
         }
     }
-}
-void update_population(Population *p){
-    check_infections_population(p);
 }

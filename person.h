@@ -9,9 +9,10 @@ typedef struct{
     int isAlive;
     float x_pos;
     float y_pos;
-
+    int is_checked;
 }Person;
 
 Person * create_person(int age, float x_pos, float y_pos);
 void move_person(Person * p, float dt,int direction);
 void draw_person(Person *p, SDL_Renderer * renderer);
+void check_infected(Person *p);

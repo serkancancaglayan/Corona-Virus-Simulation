@@ -9,4 +9,3 @@ typedef struct{
 Population * create_population(size_t population_size);
 void draw_population(Population * p, SDL_Renderer * renderer);
 void update_population(Population *p);
-void check_infections_population(Population *p);

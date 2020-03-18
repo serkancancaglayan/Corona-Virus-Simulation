@@ -12,10 +12,10 @@ int main(){
                 if(event.type == SDL_QUIT){
                     done = SDL_TRUE;
                 }
-                SDL_SetRenderDrawColor(renderer, 41, 41, 41, SDL_ALPHA_TRANSPARENT);
+                SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_TRANSPARENT);
                 SDL_RenderClear(renderer);
 
-                Population * p = createPopulation(100);
+                Population * p = create_population(100);
                 draw_population(p, renderer);
 
                 SDL_RenderPresent(renderer);
