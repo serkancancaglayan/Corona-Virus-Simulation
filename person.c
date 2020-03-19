@@ -4,16 +4,28 @@ Person * create_person(int age, float x_pos, float y_pos){
     p->age = age;
     p->x_pos = x_pos;
     p->y_pos = y_pos;
-    p->is_infected = 1;
+    p->is_infected = 0;
     p->isAlive = 1;
     p->is_checked = 0;
     return p;
 }
 
-void move_person(Person * p, float dt,int direction){
-     //direction --> -1 or 1
-    p->x_pos += default_vel_x * dt * direction;
-    p->y_pos += default_vel_y *dt * direction;
+void move_person(Person * p, float dt, float direction_x, float direction_y){
+    if(p->x_pos < -default_width){
+        p->x_pos = WindowWidth + default_width;
+    }
+    else if(p->x_pos > WindowWidth + default_width){
+        p->x_pos = - default_width;
+    }
+
+    if(p->y_pos < -default_height){
+        p->y_pos = WindowHeight + default_height;
+    }
+    else if(p->y_pos > WindowHeight + default_height){
+        p->y_pos = - default_height;
+    }
+    p->x_pos += default_vel_x * dt * direction_x;
+    p->y_pos += default_vel_y *dt * direction_y;
 }
 
 void draw_person(Person *p, SDL_Renderer * renderer){
@@ -77,7 +89,6 @@ void check_infected(Person *p){
             p->isAlive = 0;
         }
     }
-    //
     if(p->isAlive){
         p->is_infected = 0;
     }
