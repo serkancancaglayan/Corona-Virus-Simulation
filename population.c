@@ -44,13 +44,22 @@ float rand_float(float min, float max,float seed){
 
 void update_population(Population *p){
     for(int i = 0; i < p->population_size; i++){
+        // moving persons on random directions
         float rand_direction_x = rand_float(-10, 10, i);
         float rand_direction_y = rand_float(-10, 10, rand_direction_x);
         move_person(&p->persons[i], delta_time, rand_direction_x, rand_direction_y);
+    
+
+        //checking infections
+        for(int j = 0; j < p->population_size; j++){
+            if(i != j){
+                infection(&p->persons[i], &p->persons[j]);
+            }
+        }
     }
 }
 
-void free_population(Population *p){
+void free_population(Population *p){    
     free(p->persons);
     free(p);
 }

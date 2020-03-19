@@ -14,6 +14,7 @@ int main(){
                 if(event.type == SDL_QUIT){
                     done = SDL_TRUE;
                 }
+                p->persons[3].is_infected = 1;
                 SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_TRANSPARENT);
                 SDL_RenderClear(renderer);
                 draw_population(p, renderer);

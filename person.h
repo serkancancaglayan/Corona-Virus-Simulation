@@ -16,3 +16,6 @@ Person * create_person(int age, float x_pos, float y_pos);
 void move_person(Person * p, float dt, float direction_x, float direction_y);
 void draw_person(Person *p, SDL_Renderer * renderer);
 void check_infected(Person *p);
+void infection(Person *p, Person *other);
+float distance(int x1, int y1, int x2, int y2);
+

@@ -3,7 +3,7 @@
 #include <SDL2/SDL_ttf.h>
 typedef struct{
     Person * persons;
-    size_t population_size;
+    size_t population_size; 
     size_t number_of_infected;
 }Population;
 
