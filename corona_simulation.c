@@ -8,17 +8,23 @@ int main(){
         SDL_bool done = SDL_FALSE;
         if(!SDL_CreateWindowAndRenderer(WindowWidth, WindowHeight, 0, &window, &renderer)){
             SDL_SetWindowTitle(window, "Corona Simulation");
-            Population * p = create_population(250);
+            Population * p = create_population(450);
             while(!done){
                 SDL_PollEvent(&event);
                 if(event.type == SDL_QUIT){
                     done = SDL_TRUE;
                 }
-                p->persons[3].is_infected = 1;
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_TRANSPARENT);
+
+                //clearing screen with background color
+                SDL_SetRenderDrawColor(renderer, 51, 24, 20, SDL_ALPHA_TRANSPARENT);
                 SDL_RenderClear(renderer);
+
+
+                //updating and drawing population
                 draw_population(p, renderer);
                 update_population(p);
+
+
                 SDL_RenderPresent(renderer);
             }
             free_population(p);

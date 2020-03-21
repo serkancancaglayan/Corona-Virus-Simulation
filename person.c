@@ -30,14 +30,14 @@ void move_person(Person * p, float dt, float direction_x, float direction_y){
 
 void draw_person(Person *p, SDL_Renderer * renderer){
     if(p->isAlive){
-        SDL_Rect rect = {(int)p->x_pos, (int)p->y_pos, 20, 20};
+        SDL_Rect rect = {(int)p->x_pos, (int)p->y_pos, default_width, default_height};
         //draw red if person is infected, otherwise white
         if(p->is_infected){
-            SDL_SetRenderDrawColor(renderer, 255, 10, 10, SDL_ALPHA_OPAQUE);
+            SDL_SetRenderDrawColor(renderer, 142, 0, 94, SDL_ALPHA_TRANSPARENT);
         }else{
-            SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_TRANSPARENT);
         }
-        SDL_RenderDrawRect(renderer, &rect);
+        SDL_RenderFillRect(renderer, &rect);
     }else{
         return;
     }
@@ -85,18 +85,16 @@ void check_infected(Person *p){
             p->isAlive = 0;
         }
     }
-    if(p->isAlive){
-        p->is_infected = 0;
-    }
 }
 float distance(int x1, int y1, int x2, int y2){
     float dist = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
     return sqrt(dist);
 }
-void infection(Person *p, Person *other){
+int infection(Person *p, Person *other){
     float dist = distance(p->x_pos, p->y_pos, other->x_pos, other->y_pos);
     if(dist <= 10 && other->is_infected){
         p->is_infected = 1;
+        return 1;
     }
-
+    return 0;
 }

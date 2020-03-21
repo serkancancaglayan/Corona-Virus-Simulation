@@ -1,16 +1,19 @@
 #include "population.h"
+#include <time.h>
 Population * create_population(size_t population_size){
     Population * population = (Population *)malloc(sizeof(Population));
     population->persons = (Person *)malloc(sizeof(Person) * population_size);
     population->population_size = population_size;
-    population->number_of_infected = 10;
+    population->number_of_infected = 0;
     for(int i = 0; i < population_size; i++){
-        srand(i);
+        srand(i * time(NULL));
         float x_pos = rand() % (WindowWidth - default_width);
         float y_pos = rand() % (WindowHeight - default_height);
         int age = rand() % 100;
         population->persons[i] = *(create_person(age, x_pos, y_pos));
     }
+    //starting with 1 infected
+    population->persons[0].is_infected = 1;
     return population;
 }
 
@@ -53,7 +56,9 @@ void update_population(Population *p){
         //checking infections
         for(int j = 0; j < p->population_size; j++){
             if(i != j){
-                infection(&p->persons[i], &p->persons[j]);
+                if(infection(&p->persons[i], &p->persons[j])){
+                    check_infected(&p->persons[i]);
+                }
             }
         }
     }
