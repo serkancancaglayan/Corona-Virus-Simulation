@@ -18,7 +18,7 @@ Population * create_population(size_t population_size){
 }
 
 void draw_population(Population * p, SDL_Renderer * renderer){
-    /* Doesnt Work
+    /* not working
     //rendering infected count text
     char count[100];
     sprintf(count, "%d", (int)p->number_of_infected);
