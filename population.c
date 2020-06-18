@@ -47,7 +47,7 @@ float rand_float(float min, float max,float seed){
 
 void update_population(Population *p){
     for(int i = 0; i < p->population_size; i++){
-        // moving persons on random directions
+        // moving persons at random directions
         float rand_direction_x = rand_float(-10, 10, i);
         float rand_direction_y = rand_float(-10, 10, rand_direction_x);
         move_person(&p->persons[i], delta_time, rand_direction_x, rand_direction_y);
